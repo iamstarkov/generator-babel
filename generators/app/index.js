@@ -1,57 +1,37 @@
-'use strict';
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+
+var merge = Object.assign.bind(null, {});
+var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
+var parse = JSON.parse.bind(JSON);
+var concat = function concat(arr1, arr2) { return [].concat(arr1, arr2); };
+var prefixPresets = function prefixPresets(name) { return 'babel-preset-' + name; };
 
 module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
-    var done = this.async();
-
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the awesome ' + chalk.red('Babel') + ' generator!'
-    ));
-
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someOption;
-
-      done();
-    }.bind(this));
+  constructor: function constructor() {
+    yeoman.generators.Base.apply(this, arguments);
+    this.argument('presets', { type: Array, required: false });
   },
-
   writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+    app: function app() {
+      var optional = this.presets
+        ? { presets: this.presets }
+        : (this.options.config || {});
+      var existing = this.fs.exists(this.destinationPath('.babelrc'))
+            ? parse(this.fs.read(this.destinationPath('.babelrc')))
+            : {};
+      var defaults = parse(this.fs.read(this.templatePath('_babelrc')));
+      var result = merge(existing, defaults, optional);
+      this.devDepsToInstall = concat(
+        ['babel-cli', 'babel-core'],
+        result.presets.map(prefixPresets)
       );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
+      this.fs.write(
+        this.destinationPath('.babelrc'),
+        stringify(result) + '\n'
       );
     },
-
-    projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
-    }
   },
-
-  install: function () {
-    this.installDependencies();
-  }
+  install: function install() {
+    this.runInstall('npm', this.devDepsToInstall, { 'save-dev': true });
+  },
 });
