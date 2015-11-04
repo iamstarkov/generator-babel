@@ -1,21 +1,34 @@
-'use strict';
+/* eslint-env mocha */
+/* eslint-disable func-names */
 
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 
-describe('babel:app', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../generators/app'))
-      .withOptions({ skipInstall: true })
-      .withPrompts({ someOption: true })
-      .on('end', done);
+describe('babel:app', function() {
+  var generator = function() {
+    return helpers.run(path.join(__dirname, '../generators/app'));
+  };
+
+  it('creates files', function(done) {
+    generator().on('end', function() {
+      assert.file('.babelrc');
+      done();
+    });
   });
 
-  it('creates files', function () {
-    assert.file([
-      '.babelrc'
-    ]);
+  it('uses presets from options.config', function(done) {
+    generator().withOptions({ config: { presets: ['es2016'] }}).on('end', function() {
+      assert.fileContent('.babelrc', /es2016/);
+      done();
+    });
+  });
+
+  it('uses presets from arguments', function(done) {
+    generator().withArguments(['yo', 'there']).on('end', function() {
+      assert.fileContent('.babelrc', /yo/);
+      assert.fileContent('.babelrc', /there/);
+      done();
+    });
   });
 });
