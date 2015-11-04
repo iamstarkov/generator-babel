@@ -11,7 +11,8 @@
     "url": "https://github.com/iamstarkov"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "tdd": "npm test -- --watch"
   },
   "files": [
     "generators"
