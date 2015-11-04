@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "mocha",
-    "tdd": "npm test -- --watch"
+    "tdd": "npm test -- --watch",
+    "postpublish": "git push origin master --tags"
   },
   "files": [
     "generators"
