@@ -1,7 +1,7 @@
 {
   "name": "generator-babel",
   "version": "0.0.0",
-  "description": "Yeoman generator",
+  "description": "Yeoman generator to get `.babelrc` effortlessly",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "iamstarkov/generator-babel",
@@ -19,7 +19,30 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "babel",
+    "babeljs",
+    "compiler",
+    "compilation",
+    "transpiler",
+    "transpilation",
+    "es6"
+    "es2015",
+    "boilerplate",
+    "node",
+    "starter",
+    "kit",
+    "yeoman",
+    "plugin",
+    "boilerplate",
+    "template",
+    "scaffold",
+    "module",
+    "node_module",
+    "node-module",
+    "travis",
+    "javascript",
+    "npm"
   ],
   "dependencies": {
     "yeoman-generator": "^0.19.0",
