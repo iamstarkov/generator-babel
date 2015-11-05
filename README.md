@@ -23,6 +23,18 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
 [babel-require]: https://babeljs.io/docs/setup/#babel_register
 [babel-node]: https://babeljs.io/docs/usage/cli/#babel-node
 
+## Install
+
+    npm install --global yo generator-travis
+
+## Usage
+
+    # default es2015 preset
+    yo travis
+
+    # your favourite presets
+    yo travis es2015 stage-0
+
 ## License
 
 MIT © [Vladimir Starkov](https://iamstarkov.com)
