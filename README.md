@@ -39,11 +39,11 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
 
 MIT © [Vladimir Starkov](https://iamstarkov.com)
 
-[npm-url]: https://npmjs.org/package/generator-babel
+[npm-url]: https://npmjs.org/package/generator-babel-init
 [npm-image]: https://img.shields.io/npm/v/generator-babel-init.svg?style=flat
 
-[travis-url]: https://travis-ci.org/iamstarkov/generator-babel
+[travis-url]: https://travis-ci.org/iamstarkov/generator-babel-init
 [travis-image]: https://img.shields.io/travis/iamstarkov/generator-babel-init.svg?style=flat
 
-[depstat-url]: https://david-dm.org/iamstarkov/generator-babel
+[depstat-url]: https://david-dm.org/iamstarkov/generator-babel-init
 [depstat-image]: https://david-dm.org/iamstarkov/generator-babel-init.svg?style=flat
