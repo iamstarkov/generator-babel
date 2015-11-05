@@ -35,7 +35,9 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
   },
-  install: function install() {
-    this.runInstall('npm', this.devDepsToInstall, { 'save-dev': true });
+  conflicts: function conflicts() {
+    // it’s not "install" because generated project can use "prepublish" script
+    // and then babel should already exists in the generated project
+    this.npmInstall(this.devDepsToInstall, { 'save-dev': true });
   },
 });
