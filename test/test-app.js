@@ -32,6 +32,13 @@ describe('babel-init:app', function() {
     });
   });
 
+  it('uses any other option from options.config', function(done) {
+    generator().withOptions({ config: { sourceMaps: true }}).on('end', function() {
+      assert.fileContent('.babelrc', /"sourceMaps": true/);
+      done();
+    });
+  });
+
   it('uses presets from arguments', function(done) {
     generator().withArguments(['es2015', 'stage-0']).on('end', function() {
       assert.fileContent('.babelrc', /es2015/);
