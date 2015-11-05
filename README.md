@@ -1,47 +1,37 @@
-# generator-babel [![Build Status](https://secure.travis-ci.org/iamstarkov/generator-babel.png?branch=master)](https://travis-ci.org/iamstarkov/generator-babel)
+# generator-babel-init
 
-> [Yeoman](http://yeoman.io) generator
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][depstat-image]][depstat-url]
 
+> [Yeoman][yo] generator to setup [Babel][babel] effortlessly.  
+> Works great as [cli](#usage) and [with other generators too](#composability).
 
-## Getting Started
+By default, Babel doesn’t do anything! You need to configure it. So this package will create Babel’s configuration file `.babelrc` with default `es2015` preset and install required `babel-cli`, `babel-core` to devDependencies in your project.
 
-### What is Yeoman?
+After this package’s work is finished, you can access `babel-cli` and `babel-core` from your npm scripts.  
+**Transpilation:** `babel-cli` will let you use `babel` for your code [transpilation][babel-cli]:  
+`"transpile": "babel index.js > index.es5.js"`  
+**Testing with `require` hook (e.g. mocha):** `babel-core` lets you use [`require` hook][babel-require] to run your tests:  
+`"test": "mocha --require babel-core/register"`  
+**Testing with `babel-node` (e.g. tape):**  `babel-cli` lets you use `babel-node` to run your tests][babel-node]:  
+`"test": "babel-node test | tap-spec"`
 
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```bash
-npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-babel from npm, run:
-
-```bash
-npm install -g generator-babel
-```
-
-Finally, initiate the generator:
-
-```bash
-yo babel
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
+[yo]: http://yeoman.io/
+[babel]: https://babeljs.io/
+[babel-cli]: https://babeljs.io/docs/usage/cli/#babel
+[babel-require]: https://babeljs.io/docs/setup/#babel_register
+[babel-node]: https://babeljs.io/docs/usage/cli/#babel-node
 
 ## License
 
-MIT
+MIT © [Vladimir Starkov](https://iamstarkov.com)
+
+[npm-url]: https://npmjs.org/package/generator-babel
+[npm-image]: https://img.shields.io/npm/v/generator-babel-init.svg?style=flat
+
+[travis-url]: https://travis-ci.org/iamstarkov/generator-babel
+[travis-image]: https://img.shields.io/travis/iamstarkov/generator-babel-init.svg?style=flat
+
+[depstat-url]: https://david-dm.org/iamstarkov/generator-babel
+[depstat-image]: https://david-dm.org/iamstarkov/generator-babel-init.svg?style=flat
