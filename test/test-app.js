@@ -5,7 +5,7 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('babel:app', function() {
+describe('babel-init:app', function() {
   var generator = function() {
     return helpers.run(path.join(__dirname, '../generators/app'));
   };
