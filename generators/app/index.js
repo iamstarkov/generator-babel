@@ -5,11 +5,14 @@ var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); }
 var parse = JSON.parse.bind(JSON);
 var concat = function concat(arr1, arr2) { return [].concat(arr1, arr2); };
 var prefixPresets = function prefixPresets(name) { return 'babel-preset-' + name; };
+var endline = function endline(str) { return str + '\n'; };
 
 module.exports = yeoman.generators.Base.extend({
   constructor: function constructor() {
     yeoman.generators.Base.apply(this, arguments);
-    this.argument('presets', { type: Array, required: false });
+    this.argument('presets', { type: Array, required: false,
+      desc: endline('Presets’ list: "yo babel-init es2015 es2016"'),
+    });
   },
   writing: {
     app: function app() {
@@ -27,7 +30,7 @@ module.exports = yeoman.generators.Base.extend({
       );
       this.fs.write(
         this.destinationPath('.babelrc'),
-        stringify(result) + '\n'
+        endline(stringify(result))
       );
     },
   },
