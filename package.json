@@ -1,7 +1,7 @@
 {
   "name": "generator-babel-init",
   "version": "0.0.0",
-  "description": "Yeoman generator to get `.babelrc` effortlessly",
+  "description": "Yeoman generator to setup Babel effortlessly",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "iamstarkov/generator-babel-init",
