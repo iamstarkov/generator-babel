@@ -1,6 +1,6 @@
 var yeoman = require('yeoman-generator');
 
-var merge = Object.assign.bind(null, {});
+var merge = Object.assign.bind(Object, {});
 var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
 var parse = JSON.parse.bind(JSON);
 var concat = function concat(arr1, arr2) { return [].concat(arr1, arr2); };
