@@ -33,6 +33,42 @@ The entire range of [Babel presets][babel-presets] are allowed.
 
 [babel-presets]: http://babeljs.io/docs/plugins/#presets
 
+## Composability
+
+> Composability is a way to combine smaller parts to make one large thing. Sort of [like Voltron®][voltron]  
+> — [Yeoman docs](http://yeoman.io/authoring/composability.html)
+
+Just plug in _babel-init_ into your generator and let it setup your `.babelrc` and install required `devDependencies` for you. Everybody wins.
+
+### Install
+
+    npm install --save generator-babel-init
+
+#### Compose
+
+```js
+this.composeWith('babel-init', {}, {
+  local: require.resolve('generator-babel-init/generators/app')
+});
+```
+
+Add any extra fields you need to `options.config` to extend the [default][defaults] configuration. The entire range of [Babel options][babel-options] are allowed.
+
+```js
+this.composeWith('babel-init', { options: { config: {
+  presets: ['es2015', 'stage-0'],
+  plugins: ['transform-strict-mode', 'transform-object-assign'],
+  sourceMaps: true
+}}}, {
+  local: require.resolve('generator-babel-init/generators/app')
+});
+```
+Required list of `presets` and `plugins` will be installed to `devDependencies` into your project with proper names: `es2015` will be `babel-preset-es2015` and `transform-strict-mode` will be `babel-plugin-transform-strict-mode`.
+
+[babel-options]: http://babeljs.io/docs/usage/options/
+[defaults]: https://github.com/iamstarkov/generator-babel-init/blob/master/generators/app/templates/_babelrc
+[voltron]: http://25.media.tumblr.com/tumblr_m1zllfCJV21r8gq9go11_250.gif
+
 ## License
 
 MIT © [Vladimir Starkov](https://iamstarkov.com)
