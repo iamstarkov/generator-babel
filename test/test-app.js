@@ -24,6 +24,14 @@ describe('babel-init:app', function() {
     });
   });
 
+  it('uses plugins from options.config', function(done) {
+    generator().withOptions({ config: { plugins: ['transform-strict-mode', 'transform-object-assign'] }}).on('end', function() {
+      assert.fileContent('.babelrc', /transform-strict-mode/);
+      assert.fileContent('.babelrc', /transform-object-assign/);
+      done();
+    });
+  });
+
   it('uses presets from arguments', function(done) {
     generator().withArguments(['es2015', 'stage-0']).on('end', function() {
       assert.fileContent('.babelrc', /es2015/);
