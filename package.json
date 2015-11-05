@@ -45,6 +45,7 @@
     "npm"
   ],
   "dependencies": {
+    "object-assign": "^4.0.1",
     "yeoman-generator": "^0.21.1"
   },
   "devDependencies": {
