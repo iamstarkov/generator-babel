@@ -25,15 +25,19 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
 
 ## Install
 
-    npm install --global yo generator-travis
+    npm install --global yo generator-babel-init
 
 ## Usage
 
     # default es2015 preset
-    yo travis
+    yo babel-init
 
-    # your favourite presets
-    yo travis es2015 stage-0
+    # your favorite presets
+    yo babel-init es2015 stage-0
+
+The entire range of [Babel presets][babel-presets] are allowed.
+
+[babel-presets]: http://babeljs.io/docs/plugins/#presets
 
 ## License
 
