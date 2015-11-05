@@ -1,5 +1,5 @@
 {
-  "name": "generator-babel",
+  "name": "generator-babel-init",
   "version": "0.0.0",
   "description": "Yeoman generator to get `.babelrc` effortlessly",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "compilation",
     "transpiler",
     "transpilation",
-    "es6"
+    "es6",
     "es2015",
     "boilerplate",
     "node",
@@ -45,9 +45,7 @@
     "npm"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.19.0",
-    "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
+    "yeoman-generator": "^0.21.1"
   },
   "devDependencies": {
     "eslint": "^1.8.0",
