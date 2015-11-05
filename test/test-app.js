@@ -25,9 +25,9 @@ describe('babel-init:app', function() {
   });
 
   it('uses presets from arguments', function(done) {
-    generator().withArguments(['yo', 'there']).on('end', function() {
-      assert.fileContent('.babelrc', /yo/);
-      assert.fileContent('.babelrc', /there/);
+    generator().withArguments(['es2015', 'stage-0']).on('end', function() {
+      assert.fileContent('.babelrc', /es2015/);
+      assert.fileContent('.babelrc', /stage-0/);
       done();
     });
   });
