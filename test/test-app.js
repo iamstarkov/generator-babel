@@ -18,8 +18,9 @@ describe('babel-init:app', function() {
   });
 
   it('uses presets from options.config', function(done) {
-    generator().withOptions({ config: { presets: ['es2016'] }}).on('end', function() {
-      assert.fileContent('.babelrc', /es2016/);
+    generator().withOptions({ config: { presets: ['es2015', 'stage-0'] }}).on('end', function() {
+      assert.fileContent('.babelrc', /es2015/);
+      assert.fileContent('.babelrc', /stage-0/);
       done();
     });
   });
