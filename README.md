@@ -55,14 +55,20 @@ this.composeWith('babel-init', {}, {
 Add any extra fields you need to `options.config` to extend the [default][defaults] configuration. The entire range of [Babel options][babel-options] are allowed.
 
 ```js
-this.composeWith('babel-init', { options: { config: {
-  presets: ['es2015', 'stage-0'],
-  plugins: ['transform-strict-mode', 'transform-object-assign'],
-  sourceMaps: true
-}}}, {
+// skip-install is used because babel-init install babel deps for you
+// and you dont need this step in your tests
+this.composeWith('babel-init', { options: {
+  'skip-install': this.options['skip-install'],
+  config: {
+    presets: ['es2015', 'stage-0'],
+    plugins: ['transform-strict-mode', 'transform-object-assign'],
+    sourceMaps: true
+  }
+}}, {
   local: require.resolve('generator-babel-init/generators/app')
 });
 ```
+
 Required list of `presets` and `plugins` will be installed to `devDependencies` into your project with proper names: `es2015` will be `babel-preset-es2015` and `transform-strict-mode` will be `babel-plugin-transform-strict-mode`.
 
 [babel-options]: http://babeljs.io/docs/usage/options/
