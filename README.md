@@ -9,7 +9,10 @@
 
 By default, Babel doesn’t do anything! You need to configure it. So this package will create Babel’s configuration file `.babelrc` with default `es2015` preset and install required `babel-cli`, `babel-core` to devDependencies in your project.
 
-After this package’s work is finished, you can access `babel-cli` and `babel-core` from your npm scripts. It’s useful for **[transpilation][babel-cli]** (`babel index.js > index.es5.js`) and **testing** (via [hook][babel-require]: `mocha --require babel-core/register` or [babel-node repl][babel-node]: `babel-node test | tap-spec`).
+After this package’s work is finished, you can access `babel-cli` and `babel-core` from your npm scripts. It’s useful for:
+* **[transpilation][babel-cli]:** `babel index.js --out-file index.es5.js`
+* **testing** via [hook][babel-require]: `mocha --require babel-core/register`
+* **testing** with [babel-node repl][babel-node]: `babel-node test | tap-spec`
 
 [yo]: http://yeoman.io/
 [babel]: https://babeljs.io/
