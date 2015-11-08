@@ -49,8 +49,13 @@ Just plug in _babel-init_ into your generator and let it setup your `.babelrc` a
 
 #### Compose
 
+`skip-install` is used because `babel-init` install babel deps for you
+and you don’t need to test it in your own generator tests.
+
 ```js
-this.composeWith('babel-init', {}, {
+this.composeWith('babel-init', { options: {
+  'skip-install': this.options['skip-install']
+}}, {
   local: require.resolve('generator-babel-init/generators/app')
 });
 ```
@@ -58,8 +63,6 @@ this.composeWith('babel-init', {}, {
 Add any extra fields you need to `options.config` to extend the [default][defaults] configuration. The entire range of [Babel options][babel-options] are allowed.
 
 ```js
-// skip-install is used because babel-init install babel deps for you
-// and you dont need this step in your tests
 this.composeWith('babel-init', { options: {
   'skip-install': this.options['skip-install'],
   config: {
