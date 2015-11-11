@@ -27,10 +27,10 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
 ## Usage
 
     # default es2015 preset
-    yo babel-init
+    yo babel
 
     # your favorite presets
-    yo babel-init es2015 stage-0
+    yo babel es2015 stage-0
 
 The entire range of [Babel presets][babel-presets] are allowed.
 
@@ -41,7 +41,7 @@ The entire range of [Babel presets][babel-presets] are allowed.
 > Composability is a way to combine smaller parts to make one large thing. Sort of [like Voltron®][voltron]  
 > — [Yeoman docs](http://yeoman.io/authoring/composability.html)
 
-Just plug in _babel-init_ into your generator and let it setup your `.babelrc` and install required `devDependencies` for you. Everybody wins.
+Just plug in _babel_ into your generator and let it setup your `.babelrc` and install required `devDependencies` for you. Everybody wins.
 
 ### Install
 
@@ -49,11 +49,11 @@ Just plug in _babel-init_ into your generator and let it setup your `.babelrc` a
 
 #### Compose
 
-`skip-install` is used because `babel-init` install babel deps for you
+`skip-install` is used because `babel` install babel deps for you
 and you don’t need to test it in your own generator tests.
 
 ```js
-this.composeWith('babel-init', { options: {
+this.composeWith('babel', { options: {
   'skip-install': this.options['skip-install']
 }}, {
   local: require.resolve('generator-babel/generators/app')
@@ -63,7 +63,7 @@ this.composeWith('babel-init', { options: {
 Add any extra fields you need to `options.config` to extend the [default][defaults] configuration. The entire range of [Babel options][babel-options] are allowed.
 
 ```js
-this.composeWith('babel-init', { options: {
+this.composeWith('babel', { options: {
   'skip-install': this.options['skip-install'],
   config: {
     presets: ['es2015', 'stage-0'],

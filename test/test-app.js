@@ -7,7 +7,7 @@ var helpers = require('yeoman-generator').test;
 
 var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
 
-describe('babel-init:app', function() {
+describe('babel:app', function() {
   var generator = function() {
     return helpers.run(path.join(__dirname, '../generators/app'));
   };

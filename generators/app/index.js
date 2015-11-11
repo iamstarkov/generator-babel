@@ -13,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
   constructor: function constructor() {
     yeoman.generators.Base.apply(this, arguments);
     this.argument('presets', { type: Array, required: false,
-      desc: endline('Presets’ list: "yo babel-init es2015 es2016"'),
+      desc: endline('Presets’ list: "yo babel es2015 es2016"'),
     });
   },
   writing: {
