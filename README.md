@@ -1,4 +1,4 @@
-# generator-babel-init
+# generator-babel
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -22,7 +22,7 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
 
 ## Install
 
-    npm install --global yo generator-babel-init
+    npm install --global yo generator-babel
 
 ## Usage
 
@@ -45,7 +45,7 @@ Just plug in _babel-init_ into your generator and let it setup your `.babelrc` a
 
 ### Install
 
-    npm install --save generator-babel-init
+    npm install --save generator-babel
 
 #### Compose
 
@@ -56,7 +56,7 @@ and you don’t need to test it in your own generator tests.
 this.composeWith('babel-init', { options: {
   'skip-install': this.options['skip-install']
 }}, {
-  local: require.resolve('generator-babel-init/generators/app')
+  local: require.resolve('generator-babel/generators/app')
 });
 ```
 
@@ -71,25 +71,25 @@ this.composeWith('babel-init', { options: {
     sourceMaps: true
   }
 }}, {
-  local: require.resolve('generator-babel-init/generators/app')
+  local: require.resolve('generator-babel/generators/app')
 });
 ```
 
 Required list of `presets` and `plugins` will be installed to `devDependencies` into your project with proper names: `es2015` will be `babel-preset-es2015` and `transform-strict-mode` will be `babel-plugin-transform-strict-mode`.
 
 [babel-options]: http://babeljs.io/docs/usage/options/
-[defaults]: https://github.com/iamstarkov/generator-babel-init/blob/master/generators/app/templates/_babelrc
+[defaults]: https://github.com/iamstarkov/generator-babel/blob/master/generators/app/templates/_babelrc
 [voltron]: http://25.media.tumblr.com/tumblr_m1zllfCJV21r8gq9go11_250.gif
 
 ## License
 
 MIT © [Vladimir Starkov](https://iamstarkov.com)
 
-[npm-url]: https://npmjs.org/package/generator-babel-init
-[npm-image]: https://img.shields.io/npm/v/generator-babel-init.svg?style=flat
+[npm-url]: https://npmjs.org/package/generator-babel
+[npm-image]: https://img.shields.io/npm/v/generator-babel.svg?style=flat
 
-[travis-url]: https://travis-ci.org/iamstarkov/generator-babel-init
-[travis-image]: https://img.shields.io/travis/iamstarkov/generator-babel-init.svg?style=flat
+[travis-url]: https://travis-ci.org/iamstarkov/generator-babel
+[travis-image]: https://img.shields.io/travis/iamstarkov/generator-babel.svg?style=flat
 
-[depstat-url]: https://david-dm.org/iamstarkov/generator-babel-init
-[depstat-image]: https://david-dm.org/iamstarkov/generator-babel-init.svg?style=flat
+[depstat-url]: https://david-dm.org/iamstarkov/generator-babel
+[depstat-image]: https://david-dm.org/iamstarkov/generator-babel.svg?style=flat

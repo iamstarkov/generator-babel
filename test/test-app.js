@@ -54,7 +54,7 @@ describe('babel-init:app', function() {
     var pkg = {
       name: 'name',
       description: 'desc',
-      repository: 'iamstarkov/generator-babel-init',
+      repository: 'iamstarkov/generator-babel',
       license: 'MIT',
     };
     generator()
