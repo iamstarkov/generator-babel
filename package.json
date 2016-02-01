@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "Yeoman generator to setup Babel effortlessly",
   "license": "MIT",
-  "main": "app/index.js",
+  "main": "generators/app/index.js",
   "repository": "iamstarkov/generator-babel",
   "author": {
     "name": "Vladimir Starkov",

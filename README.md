@@ -71,7 +71,7 @@ this.composeWith('babel', { options: {
     sourceMaps: true
   }
 }}, {
-  local: require.resolve('generator-babel/generators/app')
+  local: require.resolve('generator-babel')
 });
 ```
 
