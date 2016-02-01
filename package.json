@@ -1,6 +1,6 @@
 {
   "name": "generator-babel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Yeoman generator to setup Babel effortlessly",
   "license": "MIT",
   "main": "generators/app/index.js",
