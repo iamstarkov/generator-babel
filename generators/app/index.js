@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+
 var yeoman = require('yeoman-generator');
 var objectAssign = require('object-assign');
 
@@ -7,17 +9,22 @@ var parse = JSON.parse.bind(JSON);
 var concat = function concat(arr1, arr2, arr3) { return [].concat(arr1, arr2, arr3); };
 var prefixPresets = function prefixPresets(name) { return 'babel-preset-' + name; };
 var prefixPlugins = function prefixPlugins(name) { return 'babel-plugin-' + name; };
-var endline = function endline(str) { return str + '\n'; };
+var Promise = require('pinkie-promise');
+var latest = require('latest-version');
+var R = require('ramda');
 
 module.exports = yeoman.generators.Base.extend({
-  constructor: function constructor() {
+  constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
     this.argument('presets', { type: Array, required: false,
-      desc: endline('Presets’ list: "yo babel es2015 es2016"'),
+      desc: 'Presets’ list: "yo babel es2015 es2016"\n',
     });
   },
   writing: {
-    app: function app() {
+    app: function() {
+      var done = this.async();
+      var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+
       var optional = this.presets
         ? { presets: this.presets }
         : (this.options.config || {});
@@ -26,24 +33,24 @@ module.exports = yeoman.generators.Base.extend({
             : {};
       var defaults = parse(this.fs.read(this.templatePath('_babelrc')));
       var result = merge(existing, defaults, optional);
-      this.devDepsToInstall = concat(
+      var deps = concat(
         ['babel-cli', 'babel-core'],
         (result.presets || []).map(prefixPresets),
         (result.plugins || []).map(prefixPlugins)
       );
       this.fs.write(
         this.destinationPath('.babelrc'),
-        endline(stringify(result))
+        (stringify(result) + '\n')
       );
+      Promise.all(deps.map(latest)).then(function(versions) {
+        var devDeps = R.zipObj(deps, versions);
+        pkg.devDependencies = R.merge((pkg.devDependencies || {}), devDeps);
+        this.fs.writeJSON('package.json', pkg);
+        done();
+      }.bind(this));
     },
   },
-  conflicts: function conflicts() {
-    // it’s not "install" because generated project can use "prepublish" script
-    // and then babel should already exists in the generated project
-    var skipInstall = this.options['skip-install'];
-    var needInstall = !skipInstall;
-    if (needInstall) {
-      this.npmInstall(this.devDepsToInstall, { 'save-dev': true });
-    }
+  install: function() {
+    this.npmInstall();
   },
 });
