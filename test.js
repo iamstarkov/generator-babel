@@ -2,8 +2,8 @@
 /* eslint-disable func-names, no-extra-bind */
 
 var path = require('path');
-var assert = require('yeoman-generator').assert;
-var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
+var helpers = require('yeoman-test');
 
 var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
 
