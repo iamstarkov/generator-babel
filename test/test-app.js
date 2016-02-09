@@ -58,21 +58,12 @@ it('uses any other option from options.config', function(done) {
 });
 
 it('add presets and plugins with proper prefixes', function(done) {
-  var pkg = {
-    name: 'name',
-    description: 'desc',
-    repository: 'iamstarkov/generator-babel',
-    license: 'MIT',
-  };
   generator()
     .withOptions({ config: {
       presets: ['es2015', 'stage-0'],
       plugins: ['transform-strict-mode', 'transform-object-assign'],
       sourceMaps: true,
     }})
-    .on('ready', function(gen) {
-      gen.fs.write(gen.destinationPath('package.json'), stringify(pkg));
-    }.bind(this))
     .on('end', function() {
       assert.file('package.json');
       assert.fileContent('package.json', /babel-preset-stage-0/);
