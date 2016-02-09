@@ -42,6 +42,14 @@ it('uses plugins from options.config', function(done) {
   });
 });
 
+it('uses plugins from options.plugins', function(done) {
+  generator().withOptions({ plugins: ['transform-strict-mode', 'transform-object-assign'] }).on('end', function() {
+    assert.fileContent('.babelrc', /transform-strict-mode/);
+    assert.fileContent('.babelrc', /transform-object-assign/);
+    done();
+  });
+});
+
 it('uses any other option from options.config', function(done) {
   generator().withOptions({ config: { sourceMaps: true }}).on('end', function() {
     assert.fileContent('.babelrc', /"sourceMaps": true/);
