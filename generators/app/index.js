@@ -23,7 +23,7 @@ module.exports = yeoman.generators.Base.extend({
       desc: 'Presets’ list: "yo babel es2015 es2016"\n',
     });
     this.option('plugins', { type: String, required: false, alias: 'p',
-      desc: 'Plugins list: "yo babel --plugins add-module-exports"',
+      desc: 'Plugins list: "yo babel -p add-module-exports"',
     });
   },
   writing: {
