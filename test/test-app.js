@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-/* eslint-disable func-names */
+/* eslint-disable func-names, no-extra-bind */
 
 var path = require('path');
 var assert = require('yeoman-generator').assert;
@@ -50,7 +50,7 @@ describe('babel:app', function() {
     });
   });
 
-  it('install presets and plugins with proper prefixes', function(done) {
+  it('add presets and plugins with proper prefixes', function(done) {
     var pkg = {
       name: 'name',
       description: 'desc',
@@ -58,7 +58,6 @@ describe('babel:app', function() {
       license: 'MIT',
     };
     generator()
-      .withOptions({ skipInstall: false })
       .withOptions({ config: {
         presets: ['es2015', 'stage-0'],
         plugins: ['transform-strict-mode', 'transform-object-assign'],

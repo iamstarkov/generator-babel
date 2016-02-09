@@ -11,7 +11,7 @@
     "url": "https://github.com/iamstarkov"
   },
   "scripts": {
-    "test": "mocha --timeout 240000",
+    "test": "mocha",
     "tdd": "npm test -- --watch",
     "postpublish": "git push origin master --tags"
   },
@@ -46,11 +46,15 @@
   ],
   "dependencies": {
     "object-assign": "^4.0.1",
-    "yeoman-generator": "^0.21.1"
+    "yeoman-generator": "^0.21.1",
+    "pinkie-promise": "^2.0.0",
+    "latest-version": "^2.0.0",
+    "ramda": "^0.19.1"
   },
   "devDependencies": {
     "eslint": "^1.8.0",
     "eslint-config-airbnb": "^0.1.0",
-    "mocha": "*"
+    "mocha": "*",
+    "babel-eslint": "^4.1.8"
   }
 }
