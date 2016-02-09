@@ -51,11 +51,7 @@ module.exports = yeoman.generators.Base.extend({
       var defaults = { presets: ['es2015'] };
 
       var result = merge(existing, defaults, cli, this.options.config);
-      console.log(result)
-      this.fs.write(
-        this.destinationPath('.babelrc'),
-        (stringify(result) + '\n')
-      );
+      this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
       var deps = concat(
         ['babel-cli', 'babel-core'],
         (result.presets || []).map(prefixPresets),
