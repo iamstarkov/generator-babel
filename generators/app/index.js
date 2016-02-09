@@ -43,7 +43,7 @@ module.exports = yeoman.generators.Base.extend({
         (stringify(result) + '\n')
       );
       Promise.all(deps.map(latest)).then(function(versions) {
-        var devDeps = R.zipObj(deps, versions);
+        var devDeps = R.zipObj(deps, versions.map(R.concat('^')));
         pkg.devDependencies = R.merge((pkg.devDependencies || {}), devDeps);
         this.fs.writeJSON('package.json', pkg);
         done();
@@ -51,6 +51,8 @@ module.exports = yeoman.generators.Base.extend({
     },
   },
   install: function() {
-    this.npmInstall();
+    if (!this.options['skip-install']) {
+      this.npmInstall();
+    }
   },
 });
