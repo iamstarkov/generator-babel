@@ -8,7 +8,7 @@ var helpers = require('yeoman-test');
 var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
 
 var generator = function() {
-  return helpers.run(path.join(__dirname, './generators/app'));
+  return helpers.run(path.join(__dirname, './index.js'));
 };
 
 it('creates files', function(done) {
