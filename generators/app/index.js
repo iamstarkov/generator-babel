@@ -16,9 +16,9 @@ var R = require('ramda');
 // splitAndTrimEach :: String -> [String]
 var splitAndTrimEach = R.pipe(R.split(','), R.map(R.trim));
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   constructor: function() {
-    yeoman.generators.Base.apply(this, arguments);
+    yeoman.Base.apply(this, arguments);
     this.argument('presets', { type: Array, required: false,
       desc: 'Presets’ list: "yo babel es2015 es2016"\n',
     });

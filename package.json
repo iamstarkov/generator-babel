@@ -46,7 +46,7 @@
   ],
   "dependencies": {
     "object-assign": "^4.0.1",
-    "yeoman-generator": "^0.21.1",
+    "yeoman-generator": "^0.22.5",
     "pinkie-promise": "^2.0.0",
     "latest-version": "^2.0.0",
     "ramda": "^0.19.1"
