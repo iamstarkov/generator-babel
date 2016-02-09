@@ -4,7 +4,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][depstat-image]][depstat-url]
 
-> [Yeoman][yo] generator to setup [Babel][babel] effortlessly.  
+> [Yeoman][yo] generator to setup [Babel][babel] effortlessly (with plugins, if you want).  
 > Works great as [cli](#usage) and [with other generators too](#composability).
 
 By default, Babel doesn’t do anything! You need to configure it. So this package will create Babel’s configuration file `.babelrc` with default `es2015` preset and install required `babel-cli`, `babel-core` to devDependencies in your project.
