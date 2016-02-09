@@ -32,6 +32,10 @@ After this package’s work is finished, you can access `babel-cli` and `babel-c
     # your favorite presets
     yo babel es2015 stage-0
 
+    # with plugins with --plugins/-p
+    yo babel -p add-module-exports
+    yo babel -p transform-strict-mode,transform-object-assign
+
 The entire range of [Babel presets][babel-presets] are allowed.
 
 [babel-presets]: http://babeljs.io/docs/plugins/#presets

@@ -1,4 +1,4 @@
-/* eslint-disable func-names */
+/* eslint-disable func-names,vars-on-top */
 
 var yeoman = require('yeoman-generator');
 var objectAssign = require('object-assign');
@@ -13,39 +13,54 @@ var Promise = require('pinkie-promise');
 var latest = require('latest-version');
 var R = require('ramda');
 
+// splitAndTrimEach :: String -> [String]
+var splitAndTrimEach = R.pipe(R.split(','), R.map(R.trim));
+
 module.exports = yeoman.generators.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
     this.argument('presets', { type: Array, required: false,
       desc: 'Presets’ list: "yo babel es2015 es2016"\n',
     });
+    this.option('plugins', { type: String, required: false, alias: 'p',
+      desc: 'Plugins list: "yo babel -p add-module-exports"',
+    });
   },
   writing: {
     app: function() {
-      var done = this.async();
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+      var done = this.async();
 
-      var optional = this.presets
-        ? { presets: this.presets }
-        : (this.options.config || {});
+      var cli = {};
+
+      if (this.presets) {
+        cli.presets = this.presets;
+      }
+
+      var plugins = this.options.plugins;
+      if (typeof plugins === 'boolean') {
+        this.log('Maybe you forgot double dash: `-plugins` instead of `--plugins`');
+      }
+      if (plugins) {
+        cli.plugins = (typeof plugins === 'string') ? splitAndTrimEach(plugins) : plugins;
+      }
+
       var existing = this.fs.exists(this.destinationPath('.babelrc'))
             ? parse(this.fs.read(this.destinationPath('.babelrc')))
             : {};
-      var defaults = parse(this.fs.read(this.templatePath('_babelrc')));
-      var result = merge(existing, defaults, optional);
+      var defaults = { presets: ['es2015'] };
+
+      var result = merge(existing, defaults, cli, this.options.config);
+      this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
       var deps = concat(
         ['babel-cli', 'babel-core'],
         (result.presets || []).map(prefixPresets),
         (result.plugins || []).map(prefixPlugins)
       );
-      this.fs.write(
-        this.destinationPath('.babelrc'),
-        (stringify(result) + '\n')
-      );
       Promise.all(deps.map(latest)).then(function(versions) {
         var devDeps = R.zipObj(deps, versions.map(R.concat('^')));
         pkg.devDependencies = R.merge((pkg.devDependencies || {}), devDeps);
-        this.fs.writeJSON('package.json', pkg);
+        this.fs.writeJSON(this.destinationPath('package.json'), pkg);
         done();
       }.bind(this));
     },
