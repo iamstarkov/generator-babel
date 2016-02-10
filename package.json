@@ -49,7 +49,8 @@
     "yeoman-generator": "^0.22.5",
     "pinkie-promise": "^2.0.0",
     "latest-version": "^2.0.0",
-    "ramda": "^0.19.1"
+    "ramda": "^0.19.1",
+    "sorted-object": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^1.8.0",

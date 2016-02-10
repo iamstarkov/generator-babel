@@ -12,6 +12,7 @@ var prefixPlugins = function prefixPlugins(name) { return 'babel-plugin-' + name
 var Promise = require('pinkie-promise');
 var latest = require('latest-version');
 var R = require('ramda');
+var sortedObject = require('sorted-object');
 
 // splitAndTrimEach :: String -> [String]
 var splitAndTrimEach = R.pipe(R.split(','), R.map(R.trim));
@@ -59,7 +60,7 @@ module.exports = yeoman.Base.extend({
       );
       Promise.all(deps.map(latest)).then(function(versions) {
         var devDeps = R.zipObj(deps, versions.map(R.concat('^')));
-        pkg.devDependencies = R.merge((pkg.devDependencies || {}), devDeps);
+        pkg.devDependencies = sortedObject(R.merge((pkg.devDependencies || {}), devDeps));
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
         done();
       }.bind(this));
