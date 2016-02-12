@@ -65,7 +65,7 @@ module.exports = yeoman.Base.extend({
           this.fs.writeJSON(this.destinationPath('package.json'), pkg);
           done();
         }.bind(this))
-        .catch(function () {
+        .catch(function() {
           this.log('Warning: one of [' + deps.join(', ') + '] dont exist');
           done();
         }.bind(this));
