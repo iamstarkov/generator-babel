@@ -1,5 +1,6 @@
 /* eslint-env mocha */
 /* eslint-disable func-names, no-extra-bind */
+'use strict';
 
 var path = require('path');
 var assert = require('yeoman-assert');
