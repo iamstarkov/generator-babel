@@ -1,4 +1,5 @@
 /* eslint-disable func-names,vars-on-top */
+'use strict';
 
 var yeoman = require('yeoman-generator');
 var objectAssign = require('object-assign');
