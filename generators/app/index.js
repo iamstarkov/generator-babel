@@ -31,7 +31,6 @@ module.exports = yeoman.Base.extend({
   writing: {
     app: function() {
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-      var done = this.async();
 
       var cli = {};
 
@@ -59,17 +58,15 @@ module.exports = yeoman.Base.extend({
         (result.presets || []).map(prefixPresets),
         (result.plugins || []).map(prefixPlugins)
       );
-      Promise.all(deps.map(latest))
+      return Promise.all(deps.map(latest))
         .then(function(versions) {
           var devDeps = R.zipObj(deps, versions.map(R.concat('^')));
           pkg.devDependencies = sortedObject(R.merge((pkg.devDependencies || {}), devDeps));
           this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-          done();
         }.bind(this))
-        .catch(function() {
-          this.log('Warning: one of [' + deps.join(', ') + '] dont exist');
-          done();
-        }.bind(this));
+        .catch(function(err) {
+          throw err;
+        });
     },
   },
   install: function() {
