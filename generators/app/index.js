@@ -54,7 +54,7 @@ module.exports = yeoman.Base.extend({
       var result = merge(existing, defaults, cli, this.options.config);
       this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
       var deps = concat(
-        ['babel-cli', 'babel-core'],
+        ['babel-cli', 'babel-register'],
         (result.presets || []).map(prefixPresets),
         (result.plugins || []).map(prefixPlugins)
       );
