@@ -1,12 +1,13 @@
 /* eslint-env mocha */
 /* eslint-disable func-names, no-extra-bind */
-'use strict';
 
+var R = require('ramda');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
-
-var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
+var depsObject = require('deps-object');
+var mapPrefixPreset = require('./generators/app/map-babel').mapPrefixPreset;
+var mapPrefixPlugin = require('./generators/app/map-babel').mapPrefixPlugin;
 
 var generator = function() {
   return helpers.run(path.join(__dirname, './generators/app'));
@@ -20,57 +21,59 @@ it('creates files', function(done) {
 });
 
 it('uses presets from options.config', function(done) {
-  generator().withOptions({ config: { presets: ['es2015', 'stage-0'] }}).on('end', function() {
-    assert.fileContent('.babelrc', /es2015/);
-    assert.fileContent('.babelrc', /stage-0/);
+  var config = { presets: ['es2015', 'stage-0'] };
+  generator().withOptions({ config: config }).on('end', function() {
+    assert.jsonFileContent('.babelrc', config);
     done();
   });
 });
 
 it('uses presets from arguments', function(done) {
-  generator().withArguments(['es2015', 'stage-0']).on('end', function() {
-    assert.fileContent('.babelrc', /es2015/);
-    assert.fileContent('.babelrc', /stage-0/);
+  var presets = ['es2015', 'stage-0'];
+  generator().withArguments(presets).on('end', function() {
+    assert.jsonFileContent('.babelrc', { presets: presets });
     done();
   });
 });
 
 it('uses plugins from options.config', function(done) {
-  generator().withOptions({ config: { plugins: ['transform-strict-mode', 'transform-object-assign'] }}).on('end', function() {
-    assert.fileContent('.babelrc', /transform-strict-mode/);
-    assert.fileContent('.babelrc', /transform-object-assign/);
+  var plugins = ['transform-strict-mode', 'transform-object-assign'];
+  generator().withOptions({ config: { plugins: plugins }}).on('end', function() {
+    assert.jsonFileContent('.babelrc', { plugins: plugins });
     done();
   });
 });
 
 it('uses plugins from options.plugins', function(done) {
+  var plugins = ['transform-strict-mode', 'transform-object-assign'];
   generator().withOptions({ plugins: ['transform-strict-mode', 'transform-object-assign'] }).on('end', function() {
-    assert.fileContent('.babelrc', /transform-strict-mode/);
-    assert.fileContent('.babelrc', /transform-object-assign/);
+    assert.jsonFileContent('.babelrc', { plugins: plugins });
     done();
   });
 });
 
 it('uses any other option from options.config', function(done) {
-  generator().withOptions({ config: { sourceMaps: true }}).on('end', function() {
-    assert.fileContent('.babelrc', /"sourceMaps": true/);
+  var config = { sourceMaps: true };
+  generator().withOptions({ config: config }).on('end', function() {
+    assert.jsonFileContent('.babelrc', config);
     done();
   });
 });
 
 it('add presets and plugins with proper prefixes', function(done) {
-  generator()
-    .withOptions({ config: {
-      presets: ['es2015', 'stage-0'],
-      plugins: ['transform-strict-mode', 'transform-object-assign'],
-      sourceMaps: true,
-    }})
-    .on('end', function() {
-      assert.file('package.json');
-      assert.fileContent('package.json', /babel-preset-stage-0/);
-      assert.fileContent('package.json', /babel-preset-stage-0/);
-      assert.fileContent('package.json', /babel-plugin-transform-strict-mode/);
-      assert.fileContent('package.json', /babel-plugin-transform-object-assign/);
-      done();
-    });
+  var presets = ['es2015', 'stage-0'];
+  var plugins = ['transform-strict-mode', 'transform-object-assign'];
+  var deps = R.concat(mapPrefixPreset(presets), mapPrefixPlugin(plugins));
+  depsObject(deps).then(function(devDeps) {
+    generator()
+      .withOptions({ config: {
+        presets: presets,
+        plugins: plugins,
+        sourceMaps: true,
+      }})
+      .on('end', function() {
+        assert.jsonFileContent('package.json', { devDependencies: devDeps });
+        done();
+      });
+  });
 });
