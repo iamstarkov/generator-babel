@@ -46,11 +46,9 @@
   ],
   "dependencies": {
     "deps-object": "^1.0.3",
-    "latest-version": "^2.0.0",
-    "object-assign": "^4.0.1",
-    "pinkie-promise": "^2.0.0",
     "ramda": "^0.19.1",
     "sorted-object": "^1.0.0",
+    "split-keywords": "^2.0.0",
     "yeoman-generator": "^0.22.5"
   },
   "devDependencies": {
