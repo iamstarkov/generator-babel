@@ -77,3 +77,11 @@ it('add presets and plugins with proper prefixes', function(done) {
       });
   });
 });
+
+it('not adding es2015 if config.presets are specified', function(done) {
+  var config = { presets: ['es2016'] };
+  generator().withOptions({ config: config }).on('end', function() {
+    assert.noFileContent('.babelrc', /es2015/);
+    done();
+  });
+});
