@@ -1,22 +1,17 @@
 /* eslint-disable func-names,vars-on-top */
-'use strict';
 
 var yeoman = require('yeoman-generator');
-var objectAssign = require('object-assign');
-
-var merge = objectAssign.bind(null, {});
-var stringify = function stringify(obj) { return JSON.stringify(obj, null, 2); };
-var parse = JSON.parse.bind(JSON);
-var concat = function concat(arr1, arr2, arr3) { return [].concat(arr1, arr2, arr3); };
-var prefixPresets = function prefixPresets(name) { return 'babel-preset-' + name; };
-var prefixPlugins = function prefixPlugins(name) { return 'babel-plugin-' + name; };
-var Promise = require('pinkie-promise');
-var latest = require('latest-version');
 var R = require('ramda');
+var splitKeywords = require('split-keywords');
 var sortedObject = require('sorted-object');
+var depsObject = require('deps-object');
+var mapPrefixPreset = require('./map-babel').mapPrefixPreset;
+var mapPrefixPlugin = require('./map-babel').mapPrefixPlugin;
+var stringify = require('./json-fp').stringify;
+var parse = require('./json-fp').parse;
 
-// splitAndTrimEach :: String -> [String]
-var splitAndTrimEach = R.pipe(R.split(','), R.map(R.trim));
+// concatAll :: [Array] -> Array
+var concatAll = R.reduce(R.concat, []);
 
 module.exports = yeoman.Base.extend({
   constructor: function() {
@@ -31,7 +26,6 @@ module.exports = yeoman.Base.extend({
   writing: {
     app: function() {
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-
       var cli = {};
 
       if (this.presets) {
@@ -42,8 +36,9 @@ module.exports = yeoman.Base.extend({
       if (typeof plugins === 'boolean') {
         this.log('Maybe you forgot double dash: `-plugins` instead of `--plugins`');
       }
+
       if (plugins) {
-        cli.plugins = (typeof plugins === 'string') ? splitAndTrimEach(plugins) : plugins;
+        cli.plugins = (typeof plugins === 'string') ? splitKeywords(plugins) : plugins;
       }
 
       var existing = this.fs.exists(this.destinationPath('.babelrc'))
@@ -51,16 +46,15 @@ module.exports = yeoman.Base.extend({
             : {};
       var defaults = { presets: ['es2015'] };
 
-      var result = merge(existing, defaults, cli, this.options.config);
+      var result = R.mergeAll([existing, defaults, cli, (this.options.config || {})]);
       this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
-      var deps = concat(
-        ['babel-cli', 'babel-register'],
-        (result.presets || []).map(prefixPresets),
-        (result.plugins || []).map(prefixPlugins)
-      );
-      return Promise.all(deps.map(latest))
-        .then(function(versions) {
-          var devDeps = R.zipObj(deps, versions.map(R.concat('^')));
+      var deps = concatAll([
+        'babel-cli', 'babel-register',
+        mapPrefixPreset(result.presets || []),
+        mapPrefixPlugin(result.plugins || []),
+      ]);
+      return depsObject(deps)
+        .then(function(devDeps) {
           pkg.devDependencies = sortedObject(R.merge((pkg.devDependencies || {}), devDeps));
           this.fs.writeJSON(this.destinationPath('package.json'), pkg);
         }.bind(this))

@@ -45,12 +45,11 @@
     "npm"
   ],
   "dependencies": {
-    "object-assign": "^4.0.1",
-    "yeoman-generator": "^0.22.5",
-    "pinkie-promise": "^2.0.0",
-    "latest-version": "^2.0.0",
+    "deps-object": "^1.0.3",
     "ramda": "^0.19.1",
-    "sorted-object": "^1.0.0"
+    "sorted-object": "^1.0.0",
+    "split-keywords": "^2.0.0",
+    "yeoman-generator": "^0.22.5"
   },
   "devDependencies": {
     "eslint": "^1.8.0",
