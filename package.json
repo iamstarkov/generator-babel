@@ -11,7 +11,7 @@
     "url": "https://github.com/iamstarkov"
   },
   "scripts": {
-    "test": "mocha -t 10000",
+    "test": "ava",
     "tdd": "npm test -- --watch",
     "postpublish": "git push origin master --tags"
   },
@@ -52,10 +52,9 @@
     "yeoman-generator": "^0.22.5"
   },
   "devDependencies": {
-    "eslint": "^1.8.0",
-    "eslint-config-airbnb": "^0.1.0",
-    "mocha": "*",
-    "babel-eslint": "^4.1.8",
+    "ava": "^0.13.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.1.0",
     "yeoman-assert": "^2.1.1",
     "yeoman-test": "^1.0.0"
   }
