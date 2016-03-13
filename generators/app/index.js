@@ -33,44 +33,42 @@ module.exports = yeoman.Base.extend({
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     };
   },
-  writing: {
-    app: function () {
-      var cli = {};
+  writing: function () {
+    var cli = {};
 
-      if (this.presets) {
-        cli.presets = this.presets;
-      }
-
-      var plugins = this.options.plugins;
-      if (typeof plugins === 'boolean') {
-        this.log('Maybe you forgot double dash: `-plugins` instead of `--plugins`');
-      }
-
-      if (plugins) {
-        cli.plugins = (typeof plugins === 'string') ? splitKeywords(plugins) : plugins;
-      }
-
-      var existing = this.fs.exists(this.destinationPath('.babelrc'))
-            ? parse(this.fs.read(this.destinationPath('.babelrc')))
-            : {};
-      var defaults = { presets: ['es2015'] };
-
-      var result = R.mergeAll([existing, defaults, cli, (this.options.config || {})]);
-      this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
-      var deps = concatAll([
-        'babel-cli', 'babel-register',
-        mapPrefixPreset(result.presets || []),
-        mapPrefixPlugin(result.plugins || [])
-      ]);
-
-      return depsObject(deps)
-        .then(function (devDeps) {
-          this.saveDepsToPkg(devDeps);
-        })
-        .catch(function (err) {
-          throw err;
-        });
+    if (this.presets) {
+      cli.presets = this.presets;
     }
+
+    var plugins = this.options.plugins;
+    if (typeof plugins === 'boolean') {
+      this.log('Maybe you forgot double dash: `-plugins` instead of `--plugins`');
+    }
+
+    if (plugins) {
+      cli.plugins = (typeof plugins === 'string') ? splitKeywords(plugins) : plugins;
+    }
+
+    var existing = this.fs.exists(this.destinationPath('.babelrc'))
+          ? parse(this.fs.read(this.destinationPath('.babelrc')))
+          : {};
+    var defaults = { presets: ['es2015'] };
+
+    var result = R.mergeAll([existing, defaults, cli, (this.options.config || {})]);
+    this.fs.write(this.destinationPath('.babelrc'), (stringify(result) + '\n'));
+    var deps = concatAll([
+      'babel-cli@6.6.5', 'babel-register@6.7.2',
+      mapPrefixPreset(result.presets || []),
+      mapPrefixPlugin(result.plugins || [])
+    ]);
+
+    return depsObject(deps)
+      .then(function (devDeps) {
+        this.saveDepsToPkg(devDeps);
+      }.bind(this))
+      .catch(function (err) {
+        throw err;
+      });
   },
   install: function () {
     if (!this.options['skip-install']) {
