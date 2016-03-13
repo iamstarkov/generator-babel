@@ -45,7 +45,7 @@
     "npm"
   ],
   "dependencies": {
-    "deps-object": "^1.0.3",
+    "deps-object": "^2.0.0",
     "ramda": "^0.19.1",
     "sorted-object": "^1.0.0",
     "split-keywords": "^2.0.0",
