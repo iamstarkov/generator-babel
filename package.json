@@ -52,10 +52,10 @@
     "yeoman-generator": "^0.22.5"
   },
   "devDependencies": {
-    "eslint": "^1.8.0",
-    "eslint-config-airbnb": "^0.1.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.1.0",
     "mocha": "*",
-    "babel-eslint": "^4.1.8",
+    "babel-eslint": "^5.0.0",
     "yeoman-assert": "^2.1.1",
     "yeoman-test": "^1.0.0"
   }
