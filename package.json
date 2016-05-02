@@ -49,7 +49,7 @@
     "ramda": "^0.21.0",
     "sorted-object": "^2.0.0",
     "split-keywords": "^2.0.0",
-    "yeoman-generator": "^0.22.5"
+    "yeoman-generator": "^0.23.0"
   },
   "devDependencies": {
     "eslint": "^2.4.0",
