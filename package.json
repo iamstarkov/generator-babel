@@ -57,6 +57,6 @@
     "mocha": "*",
     "babel-eslint": "^6.0.0",
     "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.0.0"
+    "yeoman-test": "^1.4.0"
   }
 }
