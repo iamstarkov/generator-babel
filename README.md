@@ -1,5 +1,7 @@
 # generator-babel
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/iamstarkov/generator-babel.svg)](https://greenkeeper.io/)
+
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][depstat-image]][depstat-url]
